@@ -1,0 +1,12 @@
+version: '3'
+services:
+  exchange-server:
+    build: ./currency-exchange-service
+    network_mode: host
+    ports:
+      - "8000:8000"
+  conversion-server:
+    build: ./currency-conversion-service
+    network_mode: host
+    ports:
+      - "8100:8100"
