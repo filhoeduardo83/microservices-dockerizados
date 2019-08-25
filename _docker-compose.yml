@@ -1,0 +1,19 @@
+version: '3.2'
+services:
+  exchange-server:
+    build: ./currency-exchange-service 
+    image: currency-exchange-service:1.0
+    network_mode: host
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./currency-exchange-service/target:/app
+  conversion-server:
+    build: ./currency-conversion-service
+    image: currency-conversion-service:1.0
+    network_mode: host
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./currency-conversion-service/target:/app
+  
