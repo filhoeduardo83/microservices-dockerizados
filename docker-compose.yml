@@ -2,10 +2,12 @@ version: '3.2'
 services:
   database:
     build: ./bd-service 
-    image: mysql_exchange:1.0
-    network_mode: host        
+    image: mysql_exchange:1.0 
+    network_mode: host       
     ports:
-      - "3306:3306"        
+      - "3306:3306"
+    expose:
+      - "3306"        
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bd_exchange
@@ -13,20 +15,20 @@ services:
       MYSQL_PASSWORD: admin        
     volumes:
       - /var/lib/mysql
-  exchange-server:
-    build: ./currency-exchange-service 
-    image: currency-exchange-service:1.0
-    network_mode: host
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./currency-exchange-service/target:/app
   conversion-server:
     build: ./currency-conversion-service
     image: currency-conversion-service:1.0
-    network_mode: host
+    network_mode: host       
     ports:
       - "8100:8100"
     volumes:
       - ./currency-conversion-service/target:/app
+  exchange-server:
+    build: ./currency-exchange-service 
+    image: currency-exchange-service:1.0
+    network_mode: host       
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./currency-exchange-service/target:/app
   
